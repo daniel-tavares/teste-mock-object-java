@@ -21,3 +21,30 @@
   - Se o método retorna uma outra classe qualquer, o Mockito retorna null.
   
 
+# TESTE SPRING MVC
+    
+    IMPORTES
+    
+    import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+    import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+    import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+    import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+
+    @Test
+    public void show404Page() throws Exception {
+        mockMvc.perform(get("/error/404"))
+               .andExpect(status().isOk())
+               .andExpect(view().name(ErrorController.VIEW_NOT_FOUND))
+               .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
+    }
+
+    @Test
+    public void showInternalServerErrorPage() throws Exception {
+        mockMvc.perform(get("/error/error"))
+               .andExpect(status().isOk())
+               .andExpect(view().name(ErrorController.VIEW_INTERNAL_SERVER_ERROR))
+               .andExpect(forwardedUrl("/WEB-INF/jsp/error/error.jsp"));
+    }
+    
+# TESTE SPRING API REST     
